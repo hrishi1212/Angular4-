@@ -1,0 +1,80 @@
+<div class="main-content" >
+    <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-12">
+             <div class="card" [@cardprofile]>
+                    <div class="header">       
+         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search Here">
+    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
+    <button type="button" pButton icon="fa-plus" style="float:right" (click)="showDialogToAdd()" label="Add"></button>
+</div>
+
+
+<p-confirmDialog width="400" appendTo="body"></p-confirmDialog>
+
+     <p-dataTable [value]="collaborators" selectionMode="single" [(selection)]="selectedColaborator" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true" [globalFilter]="gb" #dt>
+                
+                 <p-column field="sequenceId" header="Id" styleClass="text-center"></p-column>
+    <p-column field="name" header="Name" styleClass="text-center"></p-column>
+    <p-column field="password" header="password" styleClass="text-center"></p-column>
+    <p-column field="role" header="Role" styleClass="text-center"></p-column>
+    <p-column field="phoneNumber" header="Phone Number" styleClass="text-center"></p-column>
+    <p-column field="language" header="Language" styleClass="text-center"></p-column>
+    <p-column field="backup1" header="backup1" styleClass="text-center"></p-column>
+    <p-column field="backup2" header="backup2" styleClass="text-center"></p-column>
+    <p-column field="status" header="status" styleClass="text-center"></p-column>
+    
+             </p-dataTable>
+             
+<p-dialog header="Colaborators Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" appendTo="body" >
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="colaboratorRequest">
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="name">Name</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="colaboratorRequest.name" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="password">password</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="password" [(ngModel)]="colaboratorRequest.password" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="role">Role</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="role" [(ngModel)]="colaboratorRequest.role" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="phoneNumber">Phone Number</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="phoneNumber" [(ngModel)]="colaboratorRequest.phoneNumber" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="language">Language</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="language" [(ngModel)]="colaboratorRequest.language" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="backup1">backup1</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="backup1" [(ngModel)]="colaboratorRequest.backup1" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="backup2">backup2</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="backup2" [(ngModel)]="colaboratorRequest.backup2" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="status">status</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="status" [(ngModel)]="colaboratorRequest.status" /></div>
+        </div><br>
+    </div>
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="main()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+                    </div>
+             </div>
+         </div>
+    </div>
+</div>
+    </div>

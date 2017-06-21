@@ -1,0 +1,167 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" [@cardtable1]>
+                    <div class="header">
+                       <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search Here">
+    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
+    <button type="button" pButton icon="fa-plus" style="float:right" (click)="showDialogToAdd()" label="Add"></button>
+</div>
+
+
+<p-confirmDialog width="400" appendTo="body"></p-confirmDialog>
+
+     <p-dataTable [value]="tasks" selectionMode="single" [(selection)]="selectedTask" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true" [globalFilter]="gb" #dt>
+                
+                 <p-column field="taskId" header="taskId" styleClass="text-center"></p-column>
+    <p-column field="taskName" header="Task Name" styleClass="text-center"></p-column>
+    <p-column field="localLanguageTaskName" header="localLanguageTaskName" styleClass="text-center"></p-column>
+    <p-column field="stage" header="stage" styleClass="text-center"></p-column>
+    <p-column field="owner" header="owner" styleClass="text-center"></p-column>
+    <p-column field="description" header="Description" styleClass="text-center"></p-column>
+     <p-column field="localLanguageDescription" header="localLanguageDescription" styleClass="text-center"></p-column>
+     <p-column field="primaryCollaboratorName" header="primaryCollaboratorName" styleClass="text-center"></p-column>
+    <p-column field="checkAt" header="Check At" styleClass="text-center"></p-column>
+    <p-column field="escalationTrigger" header="escalationTrigger" styleClass="text-center"></p-column>
+    <p-column field="escalation1" header="escalation1" styleClass="text-center"></p-column>
+    <p-column field="escalation2" header="escalation2" styleClass="text-center"></p-column>
+     <p-column field="escalation2" header="escalation2" styleClass="text-center"></p-column>
+      <p-column field="escalation3" header="escalation3" styleClass="text-center"></p-column>
+       <p-column field="reviewer1" header="reviewer1" styleClass="text-center"></p-column>
+        <p-column field="reviewer2" header="reviewer2" styleClass="text-center"></p-column>
+         <p-column field="taskClassification" header="taskClassification" styleClass="text-center"></p-column>
+          <p-column field="criticality" header="criticality" styleClass="text-center"></p-column>
+          <p-column field="escalationType" header="escalationType" styleClass="text-center"></p-column>
+           <p-column field="startDateTime" header="startDateTime" styleClass="text-center"></p-column>
+            <p-column field="autoEscalationTime" header="autoEscalationTime" styleClass="text-center"></p-column>
+            <p-column field="primaryEscalationDateTime" header="primaryEscalationDateTime" styleClass="text-center"></p-column>
+            <p-column field="escalation1Time" header="escalation1Time" styleClass="text-center"></p-column>
+            <p-column field="actualEscalation1DateTime" header="actualEscalation1DateTime" styleClass="text-center"></p-column>
+            <p-column field="escalation2Time" header="escalation2Time" styleClass="text-center"></p-column>
+            <p-column field="actualEscalation2DateTime" header="actualEscalation2DateTime" styleClass="text-center"></p-column>
+           <p-column field="frequencyDays" header="frequencyDays" styleClass="text-center"></p-column>
+           <p-column field="repeatEndDate" header="repeatEndDate" styleClass="text-center"></p-column>
+            <p-column field="status" header="status" styleClass="text-center"></p-column>
+    
+             </p-dataTable>
+             
+<p-dialog header="Task Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" appendTo="body" [styleClass]="'ui1'">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="taskRequest">
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="taskName">taskName</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="taskName" [(ngModel)]="taskRequest.taskName" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="localLanguageTaskName">localLanguageTaskName</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="localLanguageTaskName" [(ngModel)]="taskRequest.localLanguageTaskName" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="description">description</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="description" [(ngModel)]="taskRequest.description" /></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="localLanguageDescription">localLanguageDescription</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="localLanguageDescription" [(ngModel)]="taskRequest.localLanguageDescription" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="primaryCollaborator">primaryCollaborator</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="primaryCollaborator" [(ngModel)]="taskRequest.primaryCollaborator" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="checkAt">checkAt</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="checkAt" [(ngModel)]="taskRequest.checkAt" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalationTrigger">escalationTrigger</label></div>
+            <div class="ui-grid-col-8"><p-dropdown [options]="escalationtrigger" [(ngModel)]="taskRequest.escalationTrigger"></p-dropdown></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalation1">escalation1</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="escalation1" [(ngModel)]="taskRequest.escalation1" /></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalation2">escalation2</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="escalation2" [(ngModel)]="taskRequest.escalation2" /></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalation3">escalation3</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="escalation3" [(ngModel)]="taskRequest.escalation3" /></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="reviewer1">reviewer1</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="reviewer1" [(ngModel)]="taskRequest.reviewer1" /></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="reviewer2">reviewer2</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="reviewer2" [(ngModel)]="taskRequest.reviewer2" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="taskClassification">taskClassification</label></div>
+            <div class="ui-grid-col-8"><p-dropdown [options]="taskclassification" [(ngModel)]="taskRequest.taskClassification"></p-dropdown></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="criticality">criticality</label></div>
+            <div class="ui-grid-col-8"><p-dropdown [options]="criticality" [(ngModel)]="taskRequest.criticality"></p-dropdown></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="startDateTime">startDateTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.startDateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="autoEscalationTime">autoEscalationTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.autoEscalationTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="primaryEscalationDateTime">primaryEscalationDateTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.primaryEscalationDateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalation1Time">escalation1Time</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.escalation1Time" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="actualEscalation1DateTime">actualEscalation1DateTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation1DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="escalation2Time">escalation2Time</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.escalation2Time" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="actualEscalation2DateTime">actualEscalation2DateTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation2DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="actualEscalation2DateTime">actualEscalation2DateTime</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation2DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="frequencyDays">frequencyDays</label></div>
+            <div class="ui-grid-col-8"><p-dropdown [options]="frequencyDay" [(ngModel)]="taskRequest.frequencyDays"></p-dropdown></div>
+        </div><br>
+         <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="repeatEndDate">repeatEndDate</label></div>
+            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.repeatEndDate" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
+        </div><br>
+
+    </div>
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="main()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+                    </div>
+                  <p-calendar [(ngModel)]="taskRequest.actualEscalation2DateTime" [showTime]="true" dateFormat="dd mm yy"></p-calendar> {{taskRequest.actualEscalation2DateTime}}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
