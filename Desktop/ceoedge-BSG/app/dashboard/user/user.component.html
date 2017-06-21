@@ -1,0 +1,110 @@
+<div class="main-content" >
+    <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-12">
+             <div class="card" [@cardprofile]>
+                    <div class="header">       
+         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search Here">
+    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
+    <button type="button" pButton icon="fa-plus" style="float:right" (click)="showDialogToAdd()" label="Add"></button>
+</div>
+
+
+<p-confirmDialog width="400" appendTo="body"></p-confirmDialog>
+
+     <p-dataTable [value]="companys" selectionMode="single" [(selection)]="selectedCompany" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true" [globalFilter]="gb" #dt>
+                
+                 
+    <p-column field="name" header="name" styleClass="text-center"></p-column>
+    <p-column field="code" header="code" styleClass="text-center"></p-column>
+    <p-column field="address" header="address" styleClass="text-center"></p-column>
+    <p-column field="managerName" header="managerName" styleClass="text-center"></p-column>
+    <p-column field="managerEmail" header="managerEmail" styleClass="text-center"></p-column>
+    <p-column field="managerPhone" header="managerPhone" styleClass="text-center"></p-column>
+    <p-column field="managerPassword" header="managerPassword" styleClass="text-center"></p-column>
+    <p-column field="ceoName" header="ceoName" styleClass="text-center"></p-column>
+     <p-column field="ceoEmail" header="ceoEmail" styleClass="text-center"></p-column>
+      <p-column field="ceoPhone" header="ceoPhone" styleClass="text-center"></p-column>
+      <p-column field="ceoPassword" header="ceoPassword" styleClass="text-center"></p-column>
+       <p-column field="activeUser" header="activeUser" styleClass="text-center"></p-column>
+        <p-column field="minMonthBilling" header="minMonthBilling" styleClass="text-center"></p-column>
+         <p-column field="perUserRate" header="perUserRate" styleClass="text-center"></p-column>
+    
+             </p-dataTable>
+             
+<p-dialog header="Company Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" appendTo="body" [styleClass]="'ui1'">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="companyRequest">
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="name">companyName</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="companyRequest.name" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="code">code</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="code" [(ngModel)]="companyRequest.code" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="address">address</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="address" [(ngModel)]="companyRequest.address" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="managerName">managerName</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="managerName" [(ngModel)]="companyRequest.managerName" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="managerEmail">managerEmail</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="managerEmail" [(ngModel)]="companyRequest.managerEmail" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="managerPhone">managerPhone</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="managerPhone" [(ngModel)]="companyRequest.managerPhone" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="managerPassword">managerPassword</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="managerPassword" [(ngModel)]="companyRequest.managerPassword" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="ceoName">ceoName</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="ceoName" [(ngModel)]="companyRequest.ceoName" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="ceoEmail">ceoEmail</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="ceoEmail" [(ngModel)]="companyRequest.ceoEmail" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="ceoPhone">ceoPhone</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="ceoPhone" [(ngModel)]="companyRequest.ceoPhone" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="ceoPassword">ceoPassword</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="ceoPassword" [(ngModel)]="companyRequest.ceoPassword" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="activeUser">activeUser</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="activeUser" [(ngModel)]="companyRequest.activeUser" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="minMonthBilling">minMonthBilling</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="minMonthBilling" [(ngModel)]="companyRequest.minMonthBilling" /></div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="perUserRate">peruserRate</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="perUserRate" [(ngModel)]="companyRequest.perUserRate" /></div>
+        </div><br>
+    </div>
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="main()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+                    </div>
+             </div>
+         </div>
+    </div>
+</div>
+    </div>
