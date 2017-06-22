@@ -10,7 +10,7 @@ import { MapsComponent } from './maps/maps.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import {LoginComponent} from '../login/login.component';
 export const MODULE_ROUTES: Route[] =[
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'dashboard', component: HomeComponent },
     { path: 'user', component: UserComponent },
     { path: 'table', component: TableComponent },

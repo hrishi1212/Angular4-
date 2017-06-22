@@ -9,4 +9,5 @@ export interface RouteInfo {
     title: string;
     menuType: MenuType;
     icon: string;
+    class:string;
 }

@@ -17,8 +17,8 @@ var ReportService = (function () {
     function ReportService(http) {
         this.http = http;
     }
-    ReportService.prototype.getReportdetails = function (role) {
-        return this.http.get(url_service_1.REST_URL + '/fetchAllTaskReport?role=' + role).map(function (response) {
+    ReportService.prototype.getReportdetails = function (role, companyCode) {
+        return this.http.get(url_service_1.REST_URL + '/fetchAllTaskReport?role=' + role + "&companyCode=" + companyCode).map(function (response) {
             console.log(response.json());
             return response.json().allTaskReportDetailsList;
         });

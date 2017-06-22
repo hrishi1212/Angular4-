@@ -29,7 +29,7 @@ private fb: FormBuilder){}
       var  login = localStorage.getItem("login");
       if(login==='true')
       {
-          //this.router.navigate(["/dashboard"]);
+          this.router.navigate(["/dashboard"]);
       }
 
     }

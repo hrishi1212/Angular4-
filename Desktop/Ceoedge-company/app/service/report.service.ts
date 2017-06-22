@@ -12,10 +12,11 @@ import {RoleTaskReports} from '../domain/roleTaskReport';
 export class ReportService{
 
 constructor(private http: Http) {}
-getReportdetails(role:string){
+getReportdetails(role:string,
+companyCode:string){
     
 
-return this.http.get(REST_URL + '/fetchAllTaskReport?role='+ role).map((response: Response) =>{
+return this.http.get(REST_URL + '/fetchAllTaskReport?role='+ role + "&companyCode=" + companyCode).map((response: Response) =>{
     console.log (response.json());
     return <Report[]>response.json().allTaskReportDetailsList}
 )

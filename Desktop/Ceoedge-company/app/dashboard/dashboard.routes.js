@@ -10,7 +10,7 @@ var maps_component_1 = require("./maps/maps.component");
 var upgrade_component_1 = require("./upgrade/upgrade.component");
 var login_component_1 = require("../login/login.component");
 exports.MODULE_ROUTES = [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'dashboard', component: home_component_1.HomeComponent },
     { path: 'user', component: user_component_1.UserComponent },
     { path: 'table', component: table_component_1.TableComponent },

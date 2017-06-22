@@ -69,7 +69,11 @@
         </div><br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="primaryCollaborator">primaryCollaborator</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="primaryCollaborator" [(ngModel)]="taskRequest.primaryCollaborator" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedPrimaryCollaborator" (change)="onselect()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.primaryCollaborator">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="checkAt">checkAt</label></div>
@@ -81,23 +85,43 @@
         </div><br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="escalation1">escalation1</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="escalation1" [(ngModel)]="taskRequest.escalation1" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedAutoescallation1" (change)="onselectAE1()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.escalation1">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
          <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="escalation2">escalation2</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="escalation2" [(ngModel)]="taskRequest.escalation2" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedAutoescallation2" (change)="onselectAE2()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.escalation2">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
          <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="escalation3">escalation3</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="escalation3" [(ngModel)]="taskRequest.escalation3" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedAutoescallation3" (change)="onselectAE3()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.escalation3">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
          <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="reviewer1">reviewer1</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="reviewer1" [(ngModel)]="taskRequest.reviewer1" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedReview1" (change)="onselectRE1()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.reviewer1">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
          <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="reviewer2">reviewer2</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="reviewer2" [(ngModel)]="taskRequest.reviewer2" /></div>
+            <div class="ui-grid-col-8"><select class="ui-dropdown-label ui-inputtext ui-corner-all" [(ngModel)]="selectedReview2" (change)="onselectRE2()">
+    <option *ngFor="let collaborator of collaborators" [ngValue]="collaborator"  [selected]="collaborator.role==taskRequest.reviewer2">
+      {{collaborator.role}}
+    </option>
+</select></div>
         </div><br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="taskClassification">taskClassification</label></div>
@@ -115,29 +139,13 @@
             <div class="ui-grid-col-4"><label for="autoEscalationTime">autoEscalationTime</label></div>
             <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.autoEscalationTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
         </div><br>
-         <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="primaryEscalationDateTime">primaryEscalationDateTime</label></div>
-            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.primaryEscalationDateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
-        </div><br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="escalation1Time">escalation1Time</label></div>
             <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.escalation1Time" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
         </div><br>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="actualEscalation1DateTime">actualEscalation1DateTime</label></div>
-            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation1DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
-        </div><br>
-        <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="escalation2Time">escalation2Time</label></div>
             <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.escalation2Time" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
-        </div><br>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="actualEscalation2DateTime">actualEscalation2DateTime</label></div>
-            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation2DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
-        </div><br>
-         <div class="ui-grid-row">
-            <div class="ui-grid-col-4"><label for="actualEscalation2DateTime">actualEscalation2DateTime</label></div>
-            <div class="ui-grid-col-8"><p-calendar [(ngModel)]="taskRequest.actualEscalation2DateTime" [showTime]="true" dateFormat="dd mm yy" ></p-calendar></div>
         </div><br>
          <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="frequencyDays">frequencyDays</label></div>

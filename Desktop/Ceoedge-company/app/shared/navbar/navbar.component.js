@@ -32,6 +32,10 @@ var NavbarComponent = (function () {
         }
         return 'Dashboard';
     };
+    NavbarComponent.prototype.logout = function () {
+        localStorage.clear();
+        location.reload();
+    };
     return NavbarComponent;
 }());
 NavbarComponent = __decorate([

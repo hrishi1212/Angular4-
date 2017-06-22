@@ -119,7 +119,7 @@ location.reload();
     }
 
 cloneColaborator(c: Colaborator) {
-    this.colaboratorRequest.adminRole=localStorage.getItem("role");
+    this.colaboratorRequest.adminRole=localStorage.getItem("adminrole");
     this.colaboratorRequest.companyCode=localStorage.getItem("companyCode");
     this.colaboratorRequest.operation="update";
       this.colaboratorRequest.role=c.role;
@@ -170,7 +170,7 @@ delmain(){
 this.displayDialog=false;
 }
 loadallcolaborator(){
-this._clo.getcolaboratordetails("MANAGER","BSG1").subscribe((colaborators : any)=>{this.collaborators =colaborators;});
+this._clo.getcolaboratordetails(localStorage.getItem("adminRole"),localStorage.getItem("companyCode")).subscribe((colaborators : any)=>{this.collaborators =colaborators;});
 
 //console.log('here'+this.products[0].name);
 this.collaborators=this.collaborators;
@@ -180,8 +180,8 @@ this.collaborators=this.collaborators;
 savecolaborator(){
   //local storage to be add
     
-     this.colaboratorRequest.adminRole="MANAGER";
-    this.colaboratorRequest.companyCode="BSG1";
+     this.colaboratorRequest.adminRole=localStorage.getItem("adminRole");
+    this.colaboratorRequest.companyCode=localStorage.getItem("companyCode");
     this.colaboratorRequest.operation="add";
 
     this._clo.savecolaborator(this.colaboratorRequest).subscribe(data => {alert("Succesfully Added Product details")},Error => {alert("failed while adding product details")})

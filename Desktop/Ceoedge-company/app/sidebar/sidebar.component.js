@@ -15,6 +15,9 @@ var sidebar_metadata_1 = require("./sidebar.metadata");
 var SidebarComponent = (function () {
     function SidebarComponent() {
         this.isCollapsed = true;
+        this.adminRole = localStorage.getItem("adminRole");
+        this.companyCode = localStorage.getItem("companyCode");
+        this.login = localStorage.getItem("login");
     }
     SidebarComponent.prototype.ngOnInit = function () {
         this.menuItems = sidebar_routes_config_1.ROUTES.filter(function (menuItem) { return menuItem.menuType !== sidebar_metadata_1.MenuType.BRAND; });

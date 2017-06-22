@@ -18,16 +18,24 @@ var task_service_1 = require("../../service/task.service");
 var task_1 = require("../../domain/task");
 var task_response_1 = require("../../domain/task.response");
 var task_request_1 = require("../../domain/task.request");
+var colaborator_service_1 = require("../../service/colaborator.service");
 var TableComponent = (function () {
-    function TableComponent(confirmationService, _task) {
+    function TableComponent(confirmationService, _task, _clo) {
         this.confirmationService = confirmationService;
         this._task = _task;
+        this._clo = _clo;
         this.task = new task_1.Task();
         this.taskRequest = new task_request_1.TaskRequest();
         this.taskResponse = new task_response_1.TaskResponse();
         this.selectedTaskRequest = new task_request_1.TaskRequest();
         this.msgs = [];
         this.msgs1 = [];
+        this.selectedPrimaryCollaborator = null;
+        this.selectedAutoescallation1 = null;
+        this.selectedAutoescallation2 = null;
+        this.selectedAutoescallation3 = null;
+        this.selectedReview1 = null;
+        this.selectedReview2 = null;
         this.escalationtrigger = [];
         this.escalationtrigger.push({ label: 'Select Escalation Trigger', value: null });
         this.escalationtrigger.push({ label: 'YES', value: 'YES' });
@@ -39,7 +47,7 @@ var TableComponent = (function () {
         this.taskclassification.push({ label: 'ASSET', value: 'ASSET' });
         this.taskclassification.push({ label: 'LIABILITY', value: 'LIABILITY' });
         this.taskclassification.push({ label: 'OFF BALANCE SHEET', value: 'OFF BALANCE SHEET' });
-        this.taskclassification.push({ label: 'OTHERS', value: 'OTHERS' });
+        this.taskclassification.push({ label: 'MOMENTUM', value: 'MOMENTUM' });
         this.criticality = [];
         this.criticality.push({ label: 'Select Criticality Level ', value: null });
         this.criticality.push({ label: '5', value: '5' });
@@ -55,6 +63,7 @@ var TableComponent = (function () {
     }
     TableComponent.prototype.ngOnInit = function () {
         this.loadalltask();
+        this.loadallcolaborator();
     };
     TableComponent.prototype.showDialogToAdd = function () {
         this.newTask = true;
@@ -84,7 +93,7 @@ var TableComponent = (function () {
     };
     TableComponent.prototype.cloneTask = function (c) {
         this.taskRequest.taskId = c.taskId;
-        this.taskRequest.owner = localStorage.getItem("role");
+        this.taskRequest.owner = localStorage.getItem("adminRole");
         this.taskRequest.autoEscalationTime = c.autoEscalationTime;
         this.taskRequest.checkAt = c.checkAt;
         this.taskRequest.companyCode = localStorage.getItem("companyCode");
@@ -137,17 +146,43 @@ var TableComponent = (function () {
     };
     TableComponent.prototype.loadalltask = function () {
         var _this = this;
-        this._task.gettaskdetails("MANAGER", "BSG1").subscribe(function (tasks) { _this.tasks = tasks; });
+        this._task.gettaskdetails(localStorage.getItem("adminRole"), localStorage.getItem("companyCode")).subscribe(function (tasks) { _this.tasks = tasks; });
         this.tasks = this.tasks;
     };
     TableComponent.prototype.savetask = function () {
         //local storage to be add
-        this.taskRequest.companyCode = "BSG1";
+        this.taskRequest.companyCode = localStorage.getItem("companyCode");
         this.taskRequest.status = "PENDING";
-        this.taskRequest.adminRole = "MANAGER";
+        this.taskRequest.adminRole = localStorage.getItem("adminRole");
         this.taskRequest.operation = "add";
-        alert("start date is " + this.taskRequest.startDateTime);
+        this.taskRequest.primaryEscalationDateTime = this.taskRequest.autoEscalationTime;
+        this.taskRequest.actualEscalation1DateTime = this.taskRequest.escalation1Time;
+        this.taskRequest.actualEscalation2DateTime = this.taskRequest.escalation2Time;
         this._task.savetask(this.taskRequest).subscribe(function (data) { alert("Succesfully Added Product details with"); }, function (Error) { console.log("failed while adding product details"); });
+    };
+    TableComponent.prototype.onselect = function () {
+        this.taskRequest.primaryCollaborator = this.selectedPrimaryCollaborator.role;
+    };
+    TableComponent.prototype.onselectAE1 = function () {
+        this.taskRequest.escalation1 = this.selectedAutoescallation1.role;
+    };
+    TableComponent.prototype.onselectAE2 = function () {
+        this.taskRequest.escalation2 = this.selectedAutoescallation2.role;
+    };
+    TableComponent.prototype.onselectAE3 = function () {
+        this.taskRequest.escalation3 = this.selectedAutoescallation3.role;
+    };
+    TableComponent.prototype.onselectRE1 = function () {
+        this.taskRequest.reviewer1 = this.selectedReview1.role;
+    };
+    TableComponent.prototype.onselectRE2 = function () {
+        this.taskRequest.reviewer2 = this.selectedReview1.role;
+    };
+    TableComponent.prototype.loadallcolaborator = function () {
+        var _this = this;
+        this._clo.getcolaboratordetails(localStorage.getItem("adminRole"), localStorage.getItem("companyCode")).subscribe(function (colaborators) { _this.collaborators = colaborators; });
+        //console.log('here'+this.products[0].name);
+        this.collaborators = this.collaborators;
     };
     return TableComponent;
 }());
@@ -157,7 +192,7 @@ TableComponent = __decorate([
         selector: 'table-cmp',
         templateUrl: 'table.component.html',
         encapsulation: core_2.ViewEncapsulation.None,
-        providers: [primeng_1.ConfirmationService, task_service_1.TaskService, http_1.HttpModule],
+        providers: [primeng_1.ConfirmationService, task_service_1.TaskService, http_1.HttpModule, colaborator_service_1.ColaboratorService],
         animations: [
             core_1.trigger('cardtable1', [
                 core_1.state('*', core_1.style({
@@ -202,7 +237,8 @@ TableComponent = __decorate([
         ]
     }),
     __metadata("design:paramtypes", [primeng_1.ConfirmationService,
-        task_service_1.TaskService])
+        task_service_1.TaskService,
+        colaborator_service_1.ColaboratorService])
 ], TableComponent);
 exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

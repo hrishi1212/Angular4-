@@ -6,7 +6,7 @@ if ('undefined' !== typeof module) {
         if(inNotify){
             $.notify({
                 icon: "pe-7s-gift",
-                message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+                message: "Welcome to <b>Ceo's Edge Dashboard</b> - a beautiful Task Management service ."
             },{
                 type: type[color],
                 timer: 1000,

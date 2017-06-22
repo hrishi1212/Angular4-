@@ -11,6 +11,9 @@ import { MenuType } from './sidebar.metadata';
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
     isCollapsed = true;
+    adminRole: string= localStorage.getItem("adminRole");
+    companyCode :string = localStorage.getItem("companyCode");
+    login:string= localStorage.getItem("login");
     constructor() {}
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem.menuType !== MenuType.BRAND);

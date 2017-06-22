@@ -27,7 +27,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.ngOnInit = function () {
         var login = localStorage.getItem("login");
         if (login === 'true') {
-            //this.router.navigate(["/dashboard"]);
+            this.router.navigate(["/dashboard"]);
         }
     };
     LoginComponent.prototype.savelogin = function () {

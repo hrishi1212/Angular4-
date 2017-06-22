@@ -12,12 +12,14 @@ import {TaskService} from '../../service/task.service';
 import {Task} from '../../domain/task';
 import {TaskResponse} from '../../domain/task.response';
 import {TaskRequest} from '../../domain/task.request';
+import {ColaboratorService} from '../../service/colaborator.service';
+import {Colaborator} from '../../domain/colaborator';
 @Component({
     moduleId: module.id,
     selector: 'table-cmp',
     templateUrl: 'table.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers:[ConfirmationService,TaskService,HttpModule],
+    providers:[ConfirmationService,TaskService,HttpModule,ColaboratorService],
     animations: [
         trigger('cardtable1', [
             state('*', style({
@@ -69,7 +71,8 @@ selectedCity: string;
 date7: string;
  constructor(
        private confirmationService: ConfirmationService,
-       private _task : TaskService
+       private _task : TaskService,
+       private _clo : ColaboratorService
      ) {
 this.escalationtrigger=[];
 this.escalationtrigger.push({label:'Select Escalation Trigger', value:null});
@@ -83,7 +86,7 @@ this.taskclassification.push({label:'EXPENSE', value:'EXPENSE'});
 this.taskclassification.push({label:'ASSET', value:'ASSET'});
 this.taskclassification.push({label:'LIABILITY', value:'LIABILITY'});
 this.taskclassification.push({label:'OFF BALANCE SHEET', value:'OFF BALANCE SHEET'});
-this.taskclassification.push({label:'OTHERS', value:'OTHERS'});
+this.taskclassification.push({label:'MOMENTUM', value:'MOMENTUM'});
 
 this.criticality=[];
 this.criticality.push({label:'Select Criticality Level ', value:null});
@@ -109,9 +112,10 @@ this.frequencyDay.push({label:'7 Day', value:'7'});
      newTask:boolean;
      tasks : Task[];
      value: Date;
-
+collaborators : Colaborator[];
     ngOnInit() {
         this.loadalltask();
+        this.loadallcolaborator();
     }
 
 showDialogToAdd() {
@@ -149,7 +153,7 @@ save() {
 
 cloneTask(c: Task) {
      this.taskRequest.taskId=c.taskId;
-     this.taskRequest.owner=localStorage.getItem("role");
+     this.taskRequest.owner=localStorage.getItem("adminRole");
      this.taskRequest.autoEscalationTime=c.autoEscalationTime;
      this.taskRequest.checkAt=c.checkAt;
      this.taskRequest.companyCode=localStorage.getItem("companyCode");
@@ -210,7 +214,7 @@ delmain(){
 this.displayDialog=false;
 }
 loadalltask(){
-this._task.gettaskdetails("MANAGER","BSG1").subscribe((tasks : any)=>{this.tasks =tasks;});
+this._task.gettaskdetails(localStorage.getItem("adminRole"),localStorage.getItem("companyCode")).subscribe((tasks : any)=>{this.tasks =tasks;});
 
 
 this.tasks=this.tasks;
@@ -218,18 +222,58 @@ this.tasks=this.tasks;
 }
 savetask(){
   //local storage to be add
-    this.taskRequest.companyCode="BSG1";
+    this.taskRequest.companyCode=localStorage.getItem("companyCode");
     this.taskRequest.status="PENDING";
-    this.taskRequest.adminRole="MANAGER";
+    this.taskRequest.adminRole=localStorage.getItem("adminRole");
     this.taskRequest.operation="add";
-    alert("start date is " + this.taskRequest.startDateTime);
+    this.taskRequest.primaryEscalationDateTime=this.taskRequest.autoEscalationTime;
+    this.taskRequest.actualEscalation1DateTime= this.taskRequest.escalation1Time;
+    this.taskRequest.actualEscalation2DateTime=this.taskRequest.escalation2Time;
     this._task.savetask(this.taskRequest).subscribe(data => {alert("Succesfully Added Product details with")},Error => {console.log("failed while adding product details")})
 }
 
 
+selectedPrimaryCollaborator=null;
+onselect(){
+    
+this.taskRequest.primaryCollaborator=this.selectedPrimaryCollaborator.role;
 
+}
+selectedAutoescallation1=null;
+onselectAE1(){
+    
+this.taskRequest.escalation1=this.selectedAutoescallation1.role;
 
+}
+selectedAutoescallation2=null;
+onselectAE2(){
+    
+this.taskRequest.escalation2=this.selectedAutoescallation2.role;
 
+}
+selectedAutoescallation3=null;
+onselectAE3(){
+    
+this.taskRequest.escalation3=this.selectedAutoescallation3.role;
+
+}
+selectedReview1= null;
+onselectRE1(){
+    this.taskRequest.reviewer1=this.selectedReview1.role;   
+}
+selectedReview2= null;
+onselectRE2(){
+    this.taskRequest.reviewer2=this.selectedReview1.role;   
+}
+
+loadallcolaborator(){
+this._clo.getcolaboratordetails(localStorage.getItem("adminRole"),localStorage.getItem("companyCode")).subscribe((colaborators : any)=>{this.collaborators =colaborators;});
+
+//console.log('here'+this.products[0].name);
+this.collaborators=this.collaborators;
+
+    
+}
 
 
 

@@ -13,14 +13,14 @@ export class AdminService{
 constructor(private http: Http) {}
 saveLogin(loginRequest :LoginRequest){
     
-return this.http.post(REST_URL + '/loginManager',LoginRequest).map((response: Response) =>{
+return this.http.post(REST_URL + '/loginManager',loginRequest).map((response: Response) =>{
     
     if(response.json().statusCode===1){
      
         localStorage.setItem("adminRole",response.json().collaboratorDetails.role+'');
         localStorage.setItem("companyCode",response.json().collaboratorDetails.companyCode+'');
         localStorage.setItem("login",'true');
-        console.log (response.json().collaboratorDetails.id);
+        console.log (response.json().collaboratorDetails.role);
     }
     else{
         alert("Login Failed Invalid Email/Password");

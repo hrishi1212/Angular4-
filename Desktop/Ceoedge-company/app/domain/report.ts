@@ -1,17 +1,32 @@
 export class Report{
-taskDateTime:string;
-taskId:string;
-taskName:string;
-status:string;
-owner:string;
-pendingDuration:string;
-primaryCollaborator:string;
-escalation1:string;
-escalation2:string;
-escalation3:string;
-reviewer1:string;
-reviewer2:string;
-taskClassification:string;
-criticality:string;
-
+taskId:number;
+    status:string;
+    stage:string;
+    owner:string;
+    taskName:string;
+    localLanguageTaskName:string;
+    description:string;
+    localLanguageDescription:string;
+    checkAt:string;
+    escalationTrigger:string;
+    escalation1:string;
+    escalation2:string;
+    escalation3:string;
+     reviewer1:string;
+    reviewer2:string;
+    taskClassification:string;
+    criticality:string;
+     escalationType:string;
+     startDateTime:string;
+      primaryCollaboratorName:string;
+       autoEscalationTime:string;
+       primaryEscalationDateTime:string;
+       escalation1Time:string;
+       actualEscalation1DateTime:string;
+    escalation2Time:string;
+   actualEscalation2DateTime:string;
+   frequencyDays:number;
+    repeatEndDate:string;
+    adminRole:String;
+    companyCode:string;
 }

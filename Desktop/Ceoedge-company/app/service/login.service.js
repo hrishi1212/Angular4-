@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var login_request_1 = require("../domain/login.request");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var url_service_1 = require("./url.service");
@@ -19,12 +18,12 @@ var AdminService = (function () {
         this.http = http;
     }
     AdminService.prototype.saveLogin = function (loginRequest) {
-        return this.http.post(url_service_1.REST_URL + '/loginManager', login_request_1.LoginRequest).map(function (response) {
+        return this.http.post(url_service_1.REST_URL + '/loginManager', loginRequest).map(function (response) {
             if (response.json().statusCode === 1) {
                 localStorage.setItem("adminRole", response.json().collaboratorDetails.role + '');
                 localStorage.setItem("companyCode", response.json().collaboratorDetails.companyCode + '');
                 localStorage.setItem("login", 'true');
-                console.log(response.json().collaboratorDetails.id);
+                console.log(response.json().collaboratorDetails.role);
             }
             else {
                 alert("Login Failed Invalid Email/Password");

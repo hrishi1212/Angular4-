@@ -62,7 +62,7 @@ var TypographyComponent = (function () {
         this.displayDialog = true;
     };
     TypographyComponent.prototype.cloneLeave = function (c) {
-        this.leaveRequest.adminRole = localStorage.getItem("role");
+        this.leaveRequest.adminRole = localStorage.getItem("adminRole");
         this.leaveRequest.companyCode = localStorage.getItem("companyCode");
         this.leaveRequest.operation = "update";
         this.leaveRequest.startDate = c.startDate;
@@ -99,14 +99,14 @@ var TypographyComponent = (function () {
     };
     TypographyComponent.prototype.loadallleave = function () {
         var _this = this;
-        this._leave.getleavedetails("MANAGER", "BSG1").subscribe(function (leaves) { _this.leaves = leaves; });
+        this._leave.getleavedetails(localStorage.getItem("adminRole"), localStorage.getItem("companyCode")).subscribe(function (leaves) { _this.leaves = leaves; });
         //console.log('here'+this.products[0].name);
         this.leaves = this.leaves;
     };
     TypographyComponent.prototype.saveleave = function () {
         //local storage to be add
-        this.leaveRequest.adminRole = "MANAGER";
-        this.leaveRequest.companyCode = "BSG1";
+        this.leaveRequest.adminRole = localStorage.getItem("adminRole");
+        this.leaveRequest.companyCode = localStorage.getItem("companyCode");
         this.leaveRequest.operation = "add";
         this._leave.saveleave(this.leaveRequest).subscribe(function (data) { alert("Succesfully Added Product details"); }, function (Error) { console.log("failed while adding product details"); });
     };

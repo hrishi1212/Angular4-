@@ -96,7 +96,7 @@ location.reload();
 
 cloneLeave(c: Leave) {
     
-    this.leaveRequest.adminRole=localStorage.getItem("role");
+    this.leaveRequest.adminRole=localStorage.getItem("adminRole");
     this.leaveRequest.companyCode=localStorage.getItem("companyCode");
     this.leaveRequest.operation="update";
       this.leaveRequest.startDate=c.startDate;
@@ -141,7 +141,7 @@ delmain(){
 this.displayDialog=false;
 }
 loadallleave(){
-this._leave.getleavedetails("MANAGER","BSG1").subscribe((leaves : any)=>{this.leaves =leaves;});
+this._leave.getleavedetails(localStorage.getItem("adminRole"),localStorage.getItem("companyCode")).subscribe((leaves : any)=>{this.leaves =leaves;});
 
 //console.log('here'+this.products[0].name);
 this.leaves=this.leaves;
@@ -149,8 +149,8 @@ this.leaves=this.leaves;
 }
 saveleave(){
   //local storage to be add
-    this.leaveRequest.adminRole="MANAGER";
-    this.leaveRequest.companyCode="BSG1";
+    this.leaveRequest.adminRole=localStorage.getItem("adminRole");
+    this.leaveRequest.companyCode=localStorage.getItem("companyCode");
     this.leaveRequest.operation="add";
     
 
